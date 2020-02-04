@@ -1,0 +1,26 @@
+
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches" >
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    <h1 class="example-app-name margin-right-10">Notes App</h1>
+    <div>
+      <mat-icon class="pointer width-10" (click)="create()">create</mat-icon>
+    </div>
+    <div>
+      <mat-icon class="pointer width-10" (click)="delete()">delete</mat-icon>
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container class="example-sidenav-container"
+                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" class="width-30" [(opened)]="opened">
+      <mat-nav-list>
+        <div class="padding-10" mat-list-item *ngFor="let note of notes" (click)="edit(note)"><h4>{{note.value | truncate}}</h4></div>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="padding-10" #contentText contenteditable="true" [textContent]="selected.value" (input)="selected.value=contentText.innerText"></div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
